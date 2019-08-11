@@ -38,6 +38,12 @@ namespace DevIO.Api
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            //Desabilitar a validaçao automatica
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
+
             services.ResolveDependencies();
         }
 
