@@ -27,13 +27,13 @@ namespace DevIO.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<FornecedorViewModel>> ObterTodos()
+        public async Task<IEnumerable<FornecedorViewModel>> ObterTodos()
         {
-            var fornecedor = _mapper.Map<FornecedorViewModel>(await _fornecedorRepository.ObterTodos());
+            var fornecedor = _mapper.Map<IEnumerable<FornecedorViewModel>>(await _fornecedorRepository.ObterTodos());
             return fornecedor;
         }
 
-        [HttpGet("{id: guid}")]
+        [HttpGet("{id:guid}")]
         public async Task<ActionResult<FornecedorViewModel>> ObterPorId(Guid id)
         {
             var fornecedor = await ObterFornecedorProdutosEndereco(id);
@@ -56,7 +56,7 @@ namespace DevIO.Api.Controllers
             return Ok(fornecedor);
         }
 
-        [HttpPut("{id: guid}")]
+        [HttpPut("{id:guid}")]
         public async Task<ActionResult<FornecedorViewModel>> Atualizar(Guid id, FornecedorViewModel fornecedorViewModel)
         {
 
@@ -72,14 +72,18 @@ namespace DevIO.Api.Controllers
             return Ok(fornecedor);
         }
 
-        [HttpDelete("{id}: guid")]
+        [HttpDelete("{id:guid}")]
         public async Task<ActionResult<FornecedorViewModel>> Excluir(Guid id)
         {
             var fornecedor = await ObterFornecedorEndereco(id);
 
             if (fornecedor == null) return NotFound();
 
-            await _fornecedorService.Remover(id);
+            var result = await _fornecedorService.Remover(id);
+
+            if (!result) return BadRequest();
+
+            return Ok();
         }
 
 
