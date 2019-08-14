@@ -45,14 +45,19 @@ export abstract class BaseService {
     }
 
     protected serviceError(error: Response | any) {
-        let errMsg: string = "";
+      let errMsg: string = "";
+
+      console.log(error, 'BASE ERRRORRRRRR');
 
         if (error instanceof Response) {
-
+          console.log('ENTROU NO IF serviceError')
             errMsg = `${error.status} - ${error.statusText || ''}`;
         }
         else {
-            errMsg = error.message ? error.message : error.toString();
+          console.log('ENTROU NO ELSE serviceError')
+            //errMsg = error.message ? error.message : error.toString();
+          errMsg = error.error.errors[0];
+          console.log(errMsg);
         }
 
         //console.error(errMsg);

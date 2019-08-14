@@ -57,7 +57,7 @@ export class CadastroComponent implements OnInit {
 
       this.produtoHandle(produtoForm)
         .subscribe(
-          result => { this.onSaveComplete(result) },
+          result => { this.onSaveComplete(result), console.log(result, "RESULTTTTTT") },
           fail => { this.onError(fail); console.log(fail, 'FAILLLL') }
         );
     }
@@ -68,7 +68,7 @@ export class CadastroComponent implements OnInit {
   }
 
   onError(fail: any) {
-    console.log(fail, 'FAILLLLONERRORRRRR')
+    console.log(fail.errors, 'FAILLLLONERRORRRRR')
     this.errors = fail.error.errors;
   }
 
