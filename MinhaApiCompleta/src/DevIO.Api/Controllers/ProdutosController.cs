@@ -75,8 +75,7 @@ namespace DevIO.Api.Controllers
 
         //Metodo padrao para upload de imagem achado na internet
         private bool UploadArquivo(string arquivo, string imgNome)
-        {
-            var imagemDataByteArray = Convert.FromBase64String(arquivo);
+        {            
 
             if (string.IsNullOrEmpty(arquivo))
             {
@@ -84,7 +83,9 @@ namespace DevIO.Api.Controllers
                 return false;
             }
 
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/imagens", imgNome);
+            var imagemDataByteArray = Convert.FromBase64String(arquivo);
+
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/app/demo-webapi/src/assets", imgNome);
 
             if (System.IO.File.Exists(filePath))
             {
