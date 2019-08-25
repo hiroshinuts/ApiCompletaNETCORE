@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DevIO.Api.Controllers;
 using DevIO.Api.ViewModels;
 using DevIO.Business.Intefaces;
 using DevIO.Business.Models;
@@ -11,10 +12,11 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DevIO.Api.Controllers
+namespace DevIO.Api.V1.Controllers
 {
     [Authorize]
-    [Route("api/produtos")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/produtos")]
     public class ProdutosController : MainController
     {
         private readonly IProdutoRepository _produtoRepository;
@@ -55,7 +57,7 @@ namespace DevIO.Api.Controllers
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
             var imagemNome = Guid.NewGuid() + "_" + produtoViewModel.Imagem;
-            if(!UploadArquivo(produtoViewModel.ImagemUpload, imagemNome))
+            if (!UploadArquivo(produtoViewModel.ImagemUpload, imagemNome))
             {
                 return CustomResponse(produtoViewModel);
             }
@@ -75,10 +77,10 @@ namespace DevIO.Api.Controllers
             produtoViewModel.Imagem = produtoAtualizacao.Imagem;
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            if(produtoViewModel.ImagemUpload != null)
+            if (produtoViewModel.ImagemUpload != null)
             {
                 var imagemNome = Guid.NewGuid() + "_" + produtoViewModel.Imagem;
-                if(!UploadArquivo(produtoViewModel.ImagemUpload, imagemNome))
+                if (!UploadArquivo(produtoViewModel.ImagemUpload, imagemNome))
                 {
                     return CustomResponse(ModelState);
                 }
@@ -136,7 +138,7 @@ namespace DevIO.Api.Controllers
 
         //Metodo padrao para upload de imagem achado na internet
         private bool UploadArquivo(string arquivo, string imgNome)
-        {            
+        {
 
             if (string.IsNullOrEmpty(arquivo))
             {
@@ -167,10 +169,10 @@ namespace DevIO.Api.Controllers
             }
 
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/app/demo-webapi/src/assets", imgPrefixo + arquivo.FileName);
-                
+
             if (System.IO.File.Exists(path))
             {
-               NotificarErro("Já existe um arquivo com este nome!");
+                NotificarErro("Já existe um arquivo com este nome!");
                 return false;
             }
 

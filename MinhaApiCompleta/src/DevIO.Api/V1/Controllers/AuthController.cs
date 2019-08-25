@@ -14,9 +14,10 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DevIO.Api.Configuration
+namespace DevIO.Api.V1.Controllers
 {
-    [Route("api/")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}")]
     public class AuthController : MainController
     {
 
@@ -24,7 +25,7 @@ namespace DevIO.Api.Configuration
         private readonly UserManager<IdentityUser> _userManager;
         private readonly AppSettings _appSettings;
 
-        public AuthController(INotificador notificador, 
+        public AuthController(INotificador notificador,
                               SignInManager<IdentityUser> signInManager,
                               UserManager<IdentityUser> userManager,
                               IOptions<AppSettings> appSettings,
@@ -52,13 +53,13 @@ namespace DevIO.Api.Configuration
             if (result.Succeeded)
             {
                 await _signInManager.SignInAsync(user, false);
-                return CustomResponse(GerarJwt(user.Email));                 
+                return CustomResponse(GerarJwt(user.Email));
             }
             foreach (var error in result.Errors)
             {
                 NotificarErro(error.Description);
             }
-            
+
             return CustomResponse(registerUser);
         }
 

@@ -36,7 +36,7 @@ namespace DevIO.Api.Controllers
             return !_notificador.TemNotificacao();
         }
 
-        protected ActionResult CustomResponse(Object result = null)
+        protected ActionResult CustomResponse(object result = null)
         {
             if (OperacaoValida())
             {
@@ -54,9 +54,9 @@ namespace DevIO.Api.Controllers
             });
         }
 
-            protected ActionResult CustomResponse(ModelStateDictionary modelState)
+        protected ActionResult CustomResponse(ModelStateDictionary modelState)
         {
-            if(!modelState.IsValid) NotificarErroModelInvalida(modelState);
+            if (!modelState.IsValid) NotificarErroModelInvalida(modelState);
             return CustomResponse();
         }
 

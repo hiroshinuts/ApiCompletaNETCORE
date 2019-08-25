@@ -1,30 +1,41 @@
 ﻿{
   "$schema": "http://json.schemastore.org/launchsettings.json",
   "iisSettings": {
-    "windowsAuthentication": false, 
-    "anonymousAuthentication": true, 
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
     "iisExpress": {
       "applicationUrl": "http://localhost:59493",
       "sslPort": 44320
     }
   },
   "profiles": {
-    "IIS Express": {
+    "IIS Dev": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "api/fornecedores",
+      "launchUrl": "api/v1/fornecedores",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "DevIO.Api": {
-      "commandName": "Project",
-      "launchBrowser": true,
-      "launchUrl": "api/fornecedores",
-      "applicationUrl": "https://localhost:5001;http://localhost:5000",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+    "profiles": {
+      "IIS Prod": {
+        "commandName": "IISExpress",
+        "launchBrowser": true,
+        "launchUrl": "api/v1/fornecedores",
+        "environmentVariables": {
+          "ASPNETCORE_ENVIRONMENT": "Production"
+        }
+      },
+      "DevIO.Api": {
+        "commandName": "Project",
+        "launchBrowser": true,
+        "launchUrl": "api/v1/fornecedores",
+        "applicationUrl": "https://localhost:5001;http://localhost:5000",
+        "environmentVariables": {
+          "ASPNETCORE_ENVIRONMENT": "Development"
+        }
       }
     }
   }
 }
+  
